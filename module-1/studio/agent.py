@@ -1,8 +1,11 @@
 from langchain_core.messages import SystemMessage
-from langchain_openai import ChatOpenAI
-
+# from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.graph import START, StateGraph, MessagesState
 from langgraph.prebuilt import tools_condition, ToolNode
+
+load_dotenv()
 
 def add(a: int, b: int) -> int:
     """Adds a and b.
@@ -34,7 +37,7 @@ def divide(a: int, b: int) -> float:
 tools = [add, multiply, divide]
 
 # Define LLM with bound tools
-llm = ChatOpenAI(model="gpt-4o")
+llm = ChatGoogleGenerativeAI(model = "gemini-3.1-flash-lite")
 llm_with_tools = llm.bind_tools(tools)
 
 # System message
